@@ -1,0 +1,1 @@
+document.write("Idioma del navegador:" + infoNavegador.idioma);
