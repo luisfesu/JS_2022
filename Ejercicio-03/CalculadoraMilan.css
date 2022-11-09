@@ -5,7 +5,8 @@ main {
 }
 
 article {
-    flex-shrink: 5;
+    
+    max-width: clamp(50rem, 90vmax, 55rem);
 
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
