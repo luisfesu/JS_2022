@@ -12,7 +12,7 @@
     <body>
         <main>
             <article>
-                <input type="text" name="screen" id="screen" readonly>
+                <input type="text" name="screen" readonly>
 
                 <input type="button" value="C" onclick="calculadora.clearCalculadora()">
                 <input type="button" value="CE">
@@ -35,8 +35,8 @@
                 <input type="button" value="+" onclick="calculadora.operacion('+')">
                 <input type="button" value="M-">
                 <input type="button" value="0" onclick="calculadora.add(0)">
-                <input type="button" value=".">
-                <input type="button" value="=" onclick="calculadora.igual()">
+                <input type="button" value="." onclick="calculadora.addDecimal()">
+                <input type="button" value="=" onclick="calculadora.mostrarPantall()">
                 <input type="button" value="M+">
             </article>
         </main>

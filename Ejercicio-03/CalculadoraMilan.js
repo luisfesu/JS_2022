@@ -3,13 +3,13 @@
 class Calculadora {
 
     constructor(nombre) {
-        
-        this.ID_PANTALLA = 'screen';
-        
+               
         this.nombre = nombre;
         this.currentScreenNumber = "";
+        
         this.operator = "";
         this.val1 = "";
+        this.val2 = "";
         this.memory = 0;
         
         this.e = this.getKeydownEvent();
@@ -90,11 +90,11 @@ class Calculadora {
         console.log(this.currentScreenNumber)
 
         // Actualizar la pantalla
-        calculadora.mostrarEnPantalla(this.ID_PANTALLA);
-      }
+        calculadora.mostrarEnPantalla();
+    }
 
-    mostrarEnPantalla(screenId) {
-        document.getElementById(screenId).value = this.currentScreenNumber;
+    mostrarEnPantalla() {
+        document.querySelector("input[type='text']").value  = this.currentScreenNumber;
     }
 
     add(valor) {
@@ -103,18 +103,18 @@ class Calculadora {
         }
 
         // Actualizar la pantalla
-        calculadora.mostrarEnPantalla(this.ID_PANTALLA);
+        calculadora.mostrarEnPantalla();
     }
 
     addDecimal() {
         if (!this.currentScreenNumber.includes(".")) {
           this.currentScreenNumber += ".";
         } else if (this.currentScreenNumber.length <= 0) {
-            this.currentScreenNumber += "0.";
+            this.currentScreenNumber = "0.";
         }
 
         // Actualizar la pantalla
-        calculadora.mostrarEnPantalla(this.ID_PANTALLA);
+        calculadora.mostrarEnPantalla();
     }
 
     operacion(operator) {
@@ -125,17 +125,24 @@ class Calculadora {
           this.operator = operator;
         } // Cuando aun no hemos almacenado nada en val1, ni hemos pulsado previamente el igual
         else if (this.val1.toString().length <= 0 || (this.val1.toString().length > 0 && this.currentScreenNumber.length > 0)) { 
+           /* OLD
           this.val1 = this.currentScreenNumber;
           this.currentScreenNumber = "";
           this.operator = operator;
+          */
+
+          this.igual(); // Para almacenar en val1
+          this.operator = operator;
+          this.currentScreenNumber = "";
+
         }// cuando ya tenemos un valor en val1 (resultado) y añadimos un operador sin que haya un numero en pantalla
          else { 
-          this.currentScreenNumber = "";
+          this.currentScreenNumber = this.val1;
           this.operator = operator;
         }
 
         // Actualizar la pantalla
-        calculadora.mostrarEnPantalla(this.ID_PANTALLA);
+        //calculadora.mostrarEnPantalla();
       }
 
     igual() {
@@ -145,20 +152,21 @@ class Calculadora {
                 Number(this.val1) + this.operator + Number(this.currentScreenNumber)
             );
             } catch (err) {
-            this.val1 = "Error: " + err;
+                this.val1 = "Error: " + err;
             }
     
             this.currentScreenNumber = "";
             this.operator = "";
         } else if (this.currentScreenNumber.length > 0) {
             try {
-            this.val1 = eval(this.currentScreenNumber);
+                this.val1 = eval(Number(this.currentScreenNumber));
             } catch (Err) {
-            this.val1 = "Error: " + Err;
+                this.val1 = "Error: " + Err;
             }
         }
     
-        document.getElementById("screen").value = this.val1;
+        //document.getElementById("screen").value = this.val1;
+        document.querySelector("input[type='text']").value = this.val1;
     }
     
 }
